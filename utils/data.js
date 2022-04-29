@@ -1,54 +1,28 @@
 const names = [
-  'Aaran',
-  'Aaren',
-  'Aarez',
-  'Aarman',
   'Aaron',
   'Aaron-James',
-  'Aarron',
-  'Aaryan',
-  'Aaryn',
-  'Aayan',
   'Aazaan',
-  'Abaan',
+  'Arnold',
   'Abbas',
-  'Abdallah',
+  'Allison',
   'Abdalroof',
   'Abdihakim',
-  'Abdirahman',
+  'Amy',
   'Abdisalam',
   'Abdul',
-  'Abdul-Aziz',
-  'Abdulbasir',
-  'Abdulkadir',
-  'Abdulkarem',
   'Smith',
   'Jones',
-  'Coollastname',
+  'Coolname',
   'enter_name_here',
-  'Ze',
-  'Zechariah',
-  'Zeek',
-  'Zeeshan',
-  'Zeid',
-  'Zein',
-  'Zen',
+  'Zaya',
   'Zendel',
   'Zenith',
   'Zennon',
-  'Zeph',
-  'Zerah',
-  'Zhen',
-  'Zhi',
   'Zhong',
-  'Zhuo',
-  'Zi',
-  'Zidane',
-  'Zijie',
   'Zinedine',
   'Zion',
   'Zishan',
-  'Ziya',
+  'Keith',
   'Ziyaan',
   'Zohaib',
   'Zohair',
@@ -74,7 +48,7 @@ const names = [
   'Parker',
 ];
 
-const appDescriptions = [
+const thoughtArray = [
   'Decision Tracker',
   'Find My Phone',
   'Learn Piano',
@@ -95,24 +69,49 @@ const appDescriptions = [
   'Deliveries',
 ];
 
+const reactionArray = [
+  'Happy',
+  'Smile',
+  'Sad',
+  'Like',
+  'Dislike',
+  'LOL',
+  'Heart',
+  'Thanks',
+  'Fire',
+  'Melt',
+  'Love',
+  'Crazy',
+  'Please',
+  'Boring',
+  'Run',
+  'Cool',
+  'Poke',
+  'Just Do It',
+];
+
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random full name
 const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+  `${getRandomArrItem(names)}`;
+
+// Gets a random thought
+const getRandomText = () =>
+  `${getRandomArrItem(thoughtArray)}`;
 
 // Function to generate random reactions that we can add to thought object.
 const getRandomReactions = (int) => {
   const results = [];
   for (let i = 0; i < int; i++) {
     results.push({
-      reactionName: getRandomArrItem(appDescriptions),
-      // score: Math.floor(Math.random() * (99 - 70 + 1) + 70),
+      reactionBody: getRandomArrItem(reactionArray),
+      username: getRandomName(),
     });
   }
   return results;
 };
 
 // Export the functions for use in seed.js
-module.exports = { getRandomName, getRandomReactions };
+module.exports = { getRandomName, getRandomText, getRandomReactions };

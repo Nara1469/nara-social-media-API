@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
-const { Thought, User, Reaction } = require('../models');
-const { getRandomName, getRandomReactions } = require('./data');
+const { Thought, User } = require('../models');
+const { getRandomName, getRandomText, getRandomReactions } = require('./data');
 
 connection.on('error', (err) => err);
 
@@ -13,34 +13,42 @@ connection.once('open', async () => {
   // Drop existing users
   await User.deleteMany({});
 
+  // Create empty array to hold the thoughts
+  const thoughtArray = [];
   // Create empty array to hold the users
   const users = [];
+  let username = '';
 
-  // Loop 20 times -- add users to the users array
-  for (let i = 0; i < 20; i++) {
-    // Get some random thought objects using a helper function that we imported from ./data
-    const thoughts = getRandomReactions(20);
+  // Loop 10 times -- add thoughts to the thoughts array
+  for (let i = 0; i < 10; i++) {
+    // Get some random reaction objects using a helper function that we imported from ./data
+    const reactions = getRandomReactions(3);
 
-    const username = getRandomName();
-    const email = `${username}@test.com`;
+    const thoughtText = getRandomText();
+    username = getRandomName();
+
+    thoughtArray.push({
+      thoughtText,
+      username,
+      reactions,
+    });
+
+    const email = `${username.toLowerCase()}@test.com`;
+    // const thoughts = [];
+    // thoughts.push(thoughtArray[thoughtArray.length - 1]);
 
     users.push({
       username,
       email,
-      thoughts,
-      // users,
+      // thoughts,
     });
   }
 
+  // Add thoughts to the collection and await the results
+  await Thought.collection.insertMany(thoughtArray);
+
   // Add users to the collection and await the results
   await User.collection.insertMany(users);
-
-  // Add thoughts to the collection and await the results
-  await Thought.collection.insertOne({
-    thoughtText: getRandomReactions(1),
-    username: getRandomName(),
-    reactions: [...reactions],
-  });
 
   // Log out the seed data to indicate what should appear in the database
   console.table(users);
