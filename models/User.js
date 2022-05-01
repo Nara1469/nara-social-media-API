@@ -6,11 +6,13 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
+      unique: true,
       required: true,
       max_length: 50,
     },
     email: {
       type: String,
+      unique: true,
       validate: {
         validator: () => Promise.resolve(false),
         message: 'Email validation failed'

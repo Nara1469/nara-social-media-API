@@ -50,6 +50,8 @@ connection.once('open', async () => {
   // Add users to the collection and await the results
   await User.collection.insertMany(users);
 
+  // await User.collection.updateMany()
+
   // Log out the seed data to indicate what should appear in the database
   console.table(users);
   console.info('Seeding complete! 🌱');
