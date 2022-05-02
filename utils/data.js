@@ -13,7 +13,6 @@ const names = [
   'Smith',
   'Jones',
   'Coolname',
-  'enter_name_here',
   'Zaya',
   'Zendel',
   'Zenith',
