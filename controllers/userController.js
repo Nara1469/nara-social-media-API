@@ -1,5 +1,3 @@
-// ObjectId() method for converting userId string into an ObjectId for querying database
-const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -62,7 +60,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No such user exists' })
-          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+          : Thought.deleteMany({ userId: req.params.userId })
       )
       .then(() => res.json({ message: 'User and thoughts deleted!' }))
       .catch((err) => res.status(500).json(err));
@@ -78,21 +76,18 @@ module.exports = {
     )
       .then((user) =>
         !user
-          ? res
-            .status(404)
-            .json({ message: 'No user found with that ID :(' })
+          ? res.status(404).json({ message: 'No user found with that ID :(' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
   // Remove friend from the user's friends array
   removeFriend(req, res) {
-    console.log('You are removing a friend');
-    console.log(`User: ${req.params.userId}`);
-    console.log(`Friend: ${req.params.friendId}`);
+    // console.log('You are removing a friend');
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { _id: req.params.friendId } } }
+      { $pull: { friends: { _id: req.params.friendId } } },
+      { runValidators: true, new: true }
     )
       .then((user) =>
         !user

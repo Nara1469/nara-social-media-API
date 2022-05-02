@@ -33,7 +33,8 @@ module.exports = {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
-          // ? res.status(404).json({ message: 'No thought with that ID' })
+          ? res.status(404).json({ message: 'No thought with that ID' })
+          : res.json(thought)
           // : Reaction.deleteMany({ $in: thought.reactions })
       )
       .then(() => res.json({ message: 'Thought and reactions deleted!' }))
@@ -71,7 +72,8 @@ module.exports = {
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } }
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
     )
       .then((thought) =>
         !thought
