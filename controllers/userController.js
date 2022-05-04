@@ -8,11 +8,11 @@ module.exports = {
         const userObj = {
           users,
         };
-        return res.json(userObj);
+        res.json(userObj);
       })
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        res.status(500).json(err);
       });
   },
   // Get a single user
@@ -31,7 +31,7 @@ module.exports = {
       )
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        res.status(500).json(err);
       });
   },
   // Create a new user
