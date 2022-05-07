@@ -62,7 +62,7 @@ module.exports = {
           ? res.status(404).json({ message: 'No such user exists' })
           : Thought.deleteMany({ userId: req.params.userId })
       )
-      .then(() => res.json({ message: 'User and thoughts deleted!' }))
+      .then(() => res.json({ message: 'User and thoughts are deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
   // Add a friend to the user
@@ -86,7 +86,7 @@ module.exports = {
     // console.log('You are removing a friend');
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { _id: req.params.friendId } } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>
