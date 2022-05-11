@@ -153,6 +153,8 @@ The following image shows examples of the application's API routes in Insomnia.
 
 ![In Insomnia, the database CRUD operation options”.](./assets/insomnia.png)
 
+**Note**: I added a custom JavaScript `Date` object to format timestamps.
+
 ## Walkthrough Video
 
 The following walkthrough videos demonstrate the API routes functionality in the NoSQL database using the Insomnia app. 
